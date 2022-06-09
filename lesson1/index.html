@@ -1,0 +1,29 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="heading">Hello World</h1>
+   <script>
+    //    document.getElementById("heading").style.color = "green";
+
+    //    document.getElementsByTagName("div").item(0).style.backgroundColor = "pink"
+    //    document.getElementsByTagName("div").item(1).style.backgroundColor = "crimson"
+    const heading = document.createElement("div");
+    
+    const span = document.createElement("span")
+    span.innerHTML = "Hello Bond"
+
+    heading.innerHTML = "Hello James"
+    heading.id = "heading2"
+    heading.style.color = "green"
+
+    heading.appendChild(span)
+
+    document.body.appendChild(heading)
+   </script>
+</body>
+</html>
