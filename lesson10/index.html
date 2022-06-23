@@ -1,0 +1,146 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        ul {
+            min-width: 56rem;
+            max-height: 64rem;
+            overflow-y: scroll;
+            background-color: white;
+            box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.141);
+            border-radius: 5px;
+            margin: 0; 
+            padding: 10px 0px;
+            /* padding: 0;
+            /* padding: px; */
+            list-style-type: none;
+        }
+
+        h1 {
+            padding: 20px;
+        }
+
+        ul li {
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        ul li:hover {
+            background-color: rgba(0, 0, 0, 0.069);
+        }
+
+        p {
+            padding: 20px;
+            font-size: small;
+        }
+
+        .popover {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            margin: 40px;
+            background-color: white;
+            box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.141);
+            border-radius: 5px;
+            padding: 10px;
+            display: flex;
+            opacity: 0;
+            transition: all .3s ease-in-out;
+        }
+
+        .popover-details {
+            display: flex;
+            flex-direction: column;
+            margin-right: 20px;
+        }   
+
+        .popover-details .title {
+            font-size: 1em;
+            font-weight: bold;
+        }
+
+        .popover-details .subtitle {
+            font-size: small;
+        }
+
+        .popover button {
+            background-color: #010101;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Todo List</h1>
+    <ul id="list">
+        <!-- <li>Buy milk</li>
+        <li>Buy milk</li>
+        <li>Buy milk</li>
+        <li>Buy milk</li> -->
+    </ul>
+    <p>Click an item to delete</p>
+    <div class="popover">
+        <div class="popover-details">
+            <span class="title">An item has been deleted</span>
+            <span class="subtitle">Click to undo</span>
+        </div>
+        <button class="popover-action">Undo</button>
+    </div>
+    <script>
+        // Selecting popover
+        const popover = document.querySelector(".popover")
+        const popover_action = document.querySelector(".popover-action")
+
+        // creating a func to remove an element
+        function removeEl (evt) {
+            // hiding the element temporarily
+            evt.target.style.display = "none"
+            // Shows the popover
+            popover.style.opacity = 1
+
+            // wait for 5secs, to finally remove the element
+            const timeout = setTimeout(() => {
+                // removes element permanently
+                evt.target.remove()
+                // hide undo popover
+                popover.style.opacity = 0
+            }, 5000)
+            
+            // clearTimeout()
+            popover_action.addEventListener("click" , () => {
+                clearTimeout(timeout);
+                
+                evt.target.style.display = "block"
+                popover.style.opacity = 0
+            })
+
+        }
+
+        const todos = ["Buy milk", "Feed pet", "Watch Doctor Strange", "Go shopping", "Eat lunch", "Code for 3 hrs"]
+
+        todos.forEach((todo) => {
+            const li = document.createElement("li")
+            li.innerHTML = todo;
+
+            li.addEventListener("click", removeEl)
+
+            document.getElementById("list").appendChild(li)
+        })
+    </script>
+</body>
+</html>
