@@ -1,0 +1,89 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Events</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        form {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 2px 2px 20px rgba(19, 19, 19, 0.414);
+            display: flex;
+            flex-direction: column;
+            max-width: 40rem;
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        input {
+            padding: 20px;
+            margin: 10px 0px;
+            border-radius: 5px;
+            border: 2px slateblue solid;
+        }
+
+        button {
+            background-color: cornflowerblue;
+            padding: 20px;
+            border-radius: 5px;
+            border: 2px slateblue solid;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <form action="/server" method="post" id="login-form">
+        <h2>Login to your account</h2>
+        <input type="email" name="email" id="email" placeholder="Enter Email Address">
+        <input type="password" name="password" id="password" minlength="8" placeholder="Password">
+        <p id="error" style="color: red; margin: 10px 0px;">Incorrect Password</p>
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        const form = document.getElementById("login-form");
+        const email = document.getElementById("email")
+        const password = document.getElementById("password")
+        const error = document.getElementById("error")
+
+        // form.addEventListener("input", () => {
+        //     console.log("Changed");
+        // })
+
+        email.addEventListener("invalid" , (e) => {
+            error.innerHTML = "Invalid Email Address"
+        })
+
+        password.addEventListener("invalid" , (e) => {
+            if(e.target.value.length < 8) {
+                error.innerHTML = "Password is too short"
+            }
+        })
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault()
+
+            const email = e.target.email;
+            const password = e.target.password;
+
+            console.log(email.value);
+            console.log(password.value);
+
+            e.target.reset()
+        })
+    </script>
+</body>
+</html>

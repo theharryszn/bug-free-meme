@@ -27,6 +27,7 @@
             /* padding: 0;
             /* padding: px; */
             list-style-type: none;
+            /* position: relative; */
         }
 
         h1 {
@@ -83,11 +84,39 @@
             padding: 10px 20px;
             border-radius: 5px;
         }
+
+        #todo-form {
+            width: 100%;
+            display: flex;
+        }
+
+        #todo-form input {
+            border: none;
+            padding: 20px;
+            flex: 3;
+        }
+
+        #todo-form button {
+            flex: 1;
+        }
+
+        li#form {
+            padding: 0px 10px;
+            /* position: absolute;
+            width: 100%;
+            bottom: 0; */
+        }
     </style>
 </head>
 <body>
     <h1>Todo List</h1>
     <ul id="list">
+        <li id="form">
+            <form id="todo-form">
+                <input type="text" minlength="1" name="todo" id="todo">
+                <button type="submit">Add</button>
+            </form>
+        </li>
         <!-- <li>Buy milk</li>
         <li>Buy milk</li>
         <li>Buy milk</li>
@@ -139,8 +168,28 @@
 
             li.addEventListener("click", removeEl)
 
-            document.getElementById("list").appendChild(li)
+            document.getElementById("list").prepend(li)
         })
+
+
+        const form = document.getElementById("todo-form")
+
+        function addTodo(e){
+            e.preventDefault()
+            const todo = e.target.todo.value;
+
+            const li = document.createElement("li")
+            li.innerHTML = todo;
+
+            li.addEventListener("click", removeEl)
+
+            document.getElementById("list").prepend(li)
+
+            e.target.reset()
+
+        }
+
+        form.addEventListener("submit", addTodo)
     </script>
 </body>
 </html>
