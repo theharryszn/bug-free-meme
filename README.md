@@ -1,6 +1,5 @@
 # JavaScript Class
 
-
 - window object
 - console
 - DOM
